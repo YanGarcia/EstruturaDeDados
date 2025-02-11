@@ -83,4 +83,36 @@ public class ListaArray {
 // Informamos que a adição foi feita com sucesso.
         return true;
     }
-}
+
+    /**
+     * Retorna a referência para o elemento presente na posição indicada
+     *
+     * @param posicao - índice para recuperação do elemento
+     * @return referência para o elemento da posição ou null se a posição for
+     * invalida
+     */
+    public Object obter(int posicao) {
+// Se a posição for invalida, retornamos null
+        if (posicao < 0 || posicao >= this.numElementos) {
+            return null;
+        }
+// Retornando a referência para o elemento da posição
+        return this.arrayInterno[posicao];
+        /**
+         * Retorna a posição em que um elemento esta presente
+         *
+         * @param elemento referência para o elemento procurado
+         * @return posicao onde esta o elemento ou NÃO_ESTA_PRESENTE se não for
+         * encontrado
+         */
+    public int posicaoDe(Object elemento) {
+        // Varrendo o arrayInterno à procura do elemento
+        for (int i = 0; i < this.numElementos; i++) // Se na posição 'i' estiver quem estamos procurando, retornamos o valor de 'i'
+        {
+            if (this.arrayInterno[i] == elemento) {
+                return 1;
+            }
+        }
+// Retornando -1 para indicar que o elemento não foi encontrado
+        return NAO_ESTA_PRESENTE;
+    }
