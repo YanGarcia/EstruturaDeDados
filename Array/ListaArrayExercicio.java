@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class ListaArray {
     private int[] array;
     private int tamanho;
@@ -15,22 +17,6 @@ class ListaArray {
         array[tamanho++] = elemento;
     }
 
-    public void adicionar(int elemento, int posicao) {
-        if (tamanho == array.length) {
-            System.out.println("Erro: Lista cheia!");
-            return;
-        }
-        if (posicao < 0 || posicao > tamanho) {
-            System.out.println("Erro: Posição inválida!");
-            return;
-        }
-        for (int i = tamanho; i > posicao; i--) {
-            array[i] = array[i - 1];
-        }
-        array[posicao] = elemento;
-        tamanho++;
-    }
-
     public void remover(int posicao) {
         if (posicao < 0 || posicao >= tamanho) {
             System.out.println("Erro: Posição inválida!");
@@ -43,6 +29,10 @@ class ListaArray {
     }
 
     public void imprimirLista() {
+        if (tamanho == 0) {
+            System.out.println("Lista vazia!");
+            return;
+        }
         System.out.print("Lista: ");
         for (int i = 0; i < tamanho; i++) {
             System.out.print(array[i] + " ");
@@ -51,24 +41,44 @@ class ListaArray {
     }
 }
 
-public class TesteLista {
+public class TesteListaArray {
     public static void main(String[] args) {
-        ListaArray lista = new ListaArray(5);
-        lista.adicionar(10);
-        lista.adicionar(20);
-        lista.adicionar(30);
-        lista.imprimirLista();
+        Scanner scanner = new Scanner(System.in);
 
-        lista.remover(1);
-        lista.imprimirLista();
+        System.out.println("Digite a capacidade da lista:");
+        int capacidade = scanner.nextInt();
+        ListaArray lista = new ListaArray(capacidade);
 
-        lista.adicionar(25, 1);
-        lista.imprimirLista();
+        while (true) {
+            System.out.println("\nEscolha uma ação:");
+            System.out.println("1 - Adicionar elemento");
+            System.out.println("2 - Remover elemento");
+            System.out.println("3 - Imprimir lista");
+            System.out.println("4 - Sair");
 
-        lista.adicionar(5, 0);
-        lista.imprimirLista();
+            int opcao = scanner.nextInt();
 
-        lista.adicionar(35, 4);
-        lista.imprimirLista();
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o elemento a ser adicionado:");
+                    int elemento = scanner.nextInt();
+                    lista.adicionar(elemento);
+                    break;
+                case 2:
+                    System.out.println("Digite a posição para remover o elemento:");
+                    int posicao = scanner.nextInt();
+                    lista.remover(posicao);
+                    break;
+                case 3:
+                    lista.imprimirLista();
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
     }
 }
