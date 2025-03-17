@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class ListaArrayString {
     private String[] array;
     private int tamanho;
@@ -27,49 +29,58 @@ class ListaArrayString {
     }
 
     public void imprimirLista() {
+        if (tamanho == 0) {
+            System.out.println("Lista vazia!");
+            return;
+        }
         System.out.print("Lista de Nomes: ");
         for (int i = 0; i < tamanho; i++) {
             System.out.print(array[i] + " ");
         }
         System.out.println();
     }
-
-    public int buscar(String nome) {
-        for (int i = 0; i < tamanho; i++) {
-            if (array[i].equalsIgnoreCase(nome)) {
-                return i;
-            }
-        }
-        return -1; // Retorna -1 se o nome não for encontrado
-    }
 }
 
-public class TesteListaString {
+public class TesteListaArrayString {
     public static void main(String[] args) {
-        ListaArrayString lista = new ListaArrayString(6);
-        lista.adicionar("Ana");
-        lista.adicionar("Bruno");
-        lista.adicionar("Carlos");
-        lista.adicionar("Diana");
-        lista.adicionar("Eduardo");
+        Scanner scanner = new Scanner(System.in);
 
-        lista.imprimirLista();
+        System.out.println("Digite a capacidade da lista:");
+        int capacidade = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+        ListaArrayString lista = new ListaArrayString(capacidade);
 
-        lista.remover(1);
-        lista.imprimirLista();
+        while (true) {
+            System.out.println("\nEscolha uma ação:");
+            System.out.println("1 - Adicionar nome");
+            System.out.println("2 - Remover nome");
+            System.out.println("3 - Imprimir lista");
+            System.out.println("4 - Sair");
 
-        int posicao = lista.buscar("Carlos");
-        if (posicao != -1) {
-            System.out.println("Nome 'Carlos' encontrado na posição: " + posicao);
-        } else {
-            System.out.println("Nome 'Carlos' não encontrado.");
-        }
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha
 
-        posicao = lista.buscar("Fernando");
-        if (posicao != -1) {
-            System.out.println("Nome 'Fernando' encontrado na posição: " + posicao);
-        } else {
-            System.out.println("Nome 'Fernando' não encontrado.");
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o nome a ser adicionado:");
+                    String nome = scanner.nextLine();
+                    lista.adicionar(nome);
+                    break;
+                case 2:
+                    System.out.println("Digite a posição para remover o nome:");
+                    int posicao = scanner.nextInt();
+                    lista.remover(posicao);
+                    break;
+                case 3:
+                    lista.imprimirLista();
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
         }
     }
 }
