@@ -11,12 +11,14 @@ class CadastroProdutos {
 
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
+        System.out.println("Produto adicionado: " + produto);
     }
 
     public void removerProduto(int codigo) {
         Produto produto = buscarProdutoPorCodigo(codigo);
         if (produto != null) {
             produtos.remove(produto);
+            System.out.println("Produto removido: " + produto);
         } else {
             System.out.println("Erro: Produto não encontrado!");
         }
@@ -67,24 +69,63 @@ class CadastroProdutos {
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Digite o código do produto: ");
-                    int codigo = scanner.nextInt();
-                    scanner.nextLine(); // Consumir a nova linha
+                    int codigo;
+                    while (true) {
+                        System.out.print("Digite o código do produto: ");
+                        try {
+                            codigo = scanner.nextInt();
+                            scanner.nextLine(); // Consumir a nova linha
+                            break;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Por favor, digite um número válido para o código do produto!");
+                            scanner.nextLine(); // Limpar entrada inválida
+                        }
+                    }
                     System.out.print("Digite o nome do produto: ");
                     String nome = scanner.nextLine();
-                    System.out.print("Digite a quantidade do produto: ");
-                    int quantidade = scanner.nextInt();
+                    int quantidade;
+                    while (true) {
+                        System.out.print("Digite a quantidade do produto: ");
+                        try {
+                            quantidade = scanner.nextInt();
+                            scanner.nextLine(); // Consumir a nova linha
+                            break;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Por favor, digite um número válido para a quantidade!");
+                            scanner.nextLine();
+                        }
+                    }
                     Produto produto = new Produto(codigo, nome, quantidade);
                     cadastro.adicionarProduto(produto);
                     break;
                 case 2:
-                    System.out.print("Digite o código do produto a ser removido: ");
-                    int codigoRemover = scanner.nextInt();
+                    int codigoRemover;
+                    while (true) {
+                        System.out.print("Digite o código do produto a ser removido: ");
+                        try {
+                            codigoRemover = scanner.nextInt();
+                            scanner.nextLine();
+                            break;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Por favor, digite um número válido para o código!");
+                            scanner.nextLine();
+                        }
+                    }
                     cadastro.removerProduto(codigoRemover);
                     break;
                 case 3:
-                    System.out.print("Digite o código do produto: ");
-                    int codigoBuscar = scanner.nextInt();
+                    int codigoBuscar;
+                    while (true) {
+                        System.out.print("Digite o código do produto: ");
+                        try {
+                            codigoBuscar = scanner.nextInt();
+                            scanner.nextLine();
+                            break;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Por favor, digite um número válido para o código!");
+                            scanner.nextLine();
+                        }
+                    }
                     Produto produtoBuscado = cadastro.buscarProdutoPorCodigo(codigoBuscar);
                     if (produtoBuscado != null) {
                         System.out.println(produtoBuscado);
